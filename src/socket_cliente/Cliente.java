@@ -5,8 +5,10 @@
 
 package socket_cliente;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import javax.swing.JOptionPane;
@@ -97,6 +99,7 @@ public class Cliente extends javax.swing.JFrame {
         try{
             String msjo = "";
             msjo = txt_msj.getText().trim();
+            txt_msj.setText("");
             ouput.writeUTF(msjo);
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -168,11 +171,11 @@ public class Cliente extends javax.swing.JFrame {
             }
         });
         String mensaje = "";
-        /*String ip = JOptionPane.showInputDialog("Ingrese la ip");
-        int puerto = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el puerto"));
-        new Cliente().setVisible(true);*/
         try{
-            socket = new Socket("127.0.0.1",1201);
+        	System.out.println("Ingrese la ip");
+        	BufferedReader x = new BufferedReader(new InputStreamReader(System.in));
+        	String dirIP = x.readLine(); 
+            socket = new Socket(dirIP,1201);
             input = new DataInputStream(socket.getInputStream());
             ouput = new DataOutputStream(socket.getOutputStream());
             while(!mensaje.equalsIgnoreCase("salir")){
